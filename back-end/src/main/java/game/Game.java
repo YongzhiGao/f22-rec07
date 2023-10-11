@@ -68,4 +68,19 @@ public class Game {
             return board.getCell(1, 1);
         return null;
     }
+
+    public String getCurrentStatus() {
+        Player winner = getWinner();
+        if (winner != null) {
+            return winner == Player.PLAYER0 ? "Player X wins!" : "Player O wins!";
+        } else {
+            return this.player == Player.PLAYER0 ? "Player X's turn" : "Player O's turn";
+        }
+    }
+    
+    public Game undo() {
+        if (history.isEmpty()) return this;
+        return history.get(history.size() - 1);
+    }
+
 }

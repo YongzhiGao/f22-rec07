@@ -6,13 +6,17 @@ public class GameState {
 
     private final Cell[] cells;
 
-    private GameState(Cell[] cells) {
+    private final String instructions;
+
+    private GameState(Cell[] cells, String instructions) {
         this.cells = cells;
+        this.instructions = instructions;
     }
 
     public static GameState forGame(Game game) {
         Cell[] cells = getCells(game);
-        return new GameState(cells);
+        String instructions = game.getCurrentStatus();
+        return new GameState(cells, instructions);
     }
 
     public Cell[] getCells() {
@@ -26,8 +30,8 @@ public class GameState {
     @Override
     public String toString() {
         return """
-                { "cells": %s}
-                """.formatted(Arrays.toString(this.cells));
+        { "cells": %s, "instructions": "%s" }
+        """.formatted(Arrays.toString(this.cells), this.instructions);
     }
 
     private static Cell[] getCells(Game game) {
@@ -92,4 +96,5 @@ class Cell {
                 }
                 """.formatted(this.text, this.playable, this.x, this.y);
     }
+
 }
